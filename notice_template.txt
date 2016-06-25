@@ -1,0 +1,6 @@
+Dependency License Checker
+Copyright 2016 Patrick Pilch. All Rights Reserved.
+
+This product includes software developed by The Apache Software Foundation (http://www.apache.org/).
+
+#GENERATED_NOTICES#

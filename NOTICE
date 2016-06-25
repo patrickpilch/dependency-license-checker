@@ -1,0 +1,39 @@
+Dependency License Checker
+Copyright 2016 Patrick Pilch. All Rights Reserved.
+
+This product includes software developed by The Apache Software Foundation (http://www.apache.org/).
+
+  Aether API under Eclipse Public License, Version 1.0
+  Aether Implementation under Eclipse Public License, Version 1.0
+  Aether SPI under Eclipse Public License, Version 1.0
+  Aether Utilities under Eclipse Public License, Version 1.0
+  AOP alliance under Public Domain
+  Apache Maven Dependency Tree under Apache License, Version 2.0
+  Apache Maven Enforcer API under Apache License, Version 2.0
+  CDI APIs under Apache License, Version 2.0
+  classworlds under BSD Style License
+  Default Plexus Container under Apache License, Version 2.0
+  Guava: Google Core Libraries for Java under The Apache Software License, Version 2.0
+  javax.inject under The Apache Software License, Version 2.0
+  JSR-250 Common Annotations for the JavaTM Platform under COMMON DEVELOPMENT AND DISTRIBUTION LICENSE (CDDL) Version 1.0
+  JUnit under Common Public License Version 1.0
+  License enforcement rule under Apache License, Version 2.0
+  Maven Aether Provider under Apache License, Version 2.0
+  Maven Artifact under Apache License, Version 2.0
+  Maven Builder Support under Apache License, Version 2.0
+  Maven Core under Apache License, Version 2.0
+  Maven Model under Apache License, Version 2.0
+  Maven Model Builder under Apache License, Version 2.0
+  Maven Plugin API under The Apache Software License, Version 2.0
+  Maven Repository Metadata Model under Apache License, Version 2.0
+  Maven Settings under Apache License, Version 2.0
+  Maven Settings Builder under Apache License, Version 2.0
+  org.eclipse.sisu.inject under Eclipse Public License, Version 1.0
+  org.eclipse.sisu.plexus under Eclipse Public License, Version 1.0
+  Plexus :: Component Annotations under The Apache Software License, Version 2.0
+  Plexus Cipher: encryption/decryption Component under Apache Public License 2.0
+  Plexus Classworlds under The Apache Software License, Version 2.0
+  Plexus Common Utilities under The Apache Software License, Version 2.0
+  Plexus Interpolation API under The Apache Software License, Version 2.0
+  Plexus Security Dispatcher Component under Apache Public License 2.0
+  Sisu Guice - Core Library under The Apache Software License, Version 2.0
