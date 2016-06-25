@@ -1,5 +1,7 @@
 # Dependency License Enforcer (Work in Progress)
 
+[![Build Status](https://travis-ci.org/patrickpilch/dependency-license-checker.svg?branch=master)](https://travis-ci.org/patrickpilch/dependency-license-checker)
+
 ## Usage
 
 Add the plugin and relevant configuration to your project's pom file.
