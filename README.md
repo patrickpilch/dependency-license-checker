@@ -4,7 +4,7 @@
 
 ## Usage
 
-Add the plugin and relevant configuration to your project's pom file.
+### Sample Configuration
 
 ```xml
 <plugin>
@@ -43,6 +43,20 @@ Add the plugin and relevant configuration to your project's pom file.
         </execution>
     </executions>
 </plugin>
+```
+
+### Sample Output
+```
+[WARNING] Rule 0: io.github.patrickpilch.dependencylicensechecker.plugin.enforcer.LicenseEnforcerRule failed with message:
+Artifact "junit:junit:jar:3.8.1" with license "Common Public License Version 1.0" does not have an allowed license or is not excluded.
+patrick.test.sandbox:Sandbox:jar:1.0-SNAPSHOT
+└─ io.github.patrickpilch:license-enforcer:jar:0.0.1-SNAPSHOT
+   └─ org.apache.maven.enforcer:enforcer-api:jar:1.4.1
+      └─ org.codehaus.plexus:plexus-container-default:jar:1.0-alpha-9
+         └─ junit:junit:jar:3.8.1
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
 ```
 
 ## Design
