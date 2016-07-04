@@ -1,4 +1,4 @@
-# Dependency License Enforcer (Work in Progress)
+# Dependency License Checker (Work in Progress)
 
 [![Build Status](https://travis-ci.org/patrickpilch/dependency-license-checker.svg?branch=master)](https://travis-ci.org/patrickpilch/dependency-license-checker)
 
