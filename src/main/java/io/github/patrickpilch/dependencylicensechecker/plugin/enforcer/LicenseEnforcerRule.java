@@ -31,6 +31,7 @@ import org.codehaus.plexus.component.repository.exception.ComponentLookupExcepti
 import org.eclipse.aether.RepositorySystemSession;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -82,14 +83,18 @@ public class LicenseEnforcerRule implements EnforcerRule2 {
         }
     }
 
-    private Set<String> createWhitelistedLicensesSet(String[] licenseWhitelist) {
+    private Set<String> createWhitelistedLicensesSet(final String[] configuredLicenseWhitelist) {
         if (log.isDebugEnabled()) {
-            log.debug("Provided license whitelist: " + Arrays.toString(licenseWhitelist));
+            log.debug("Provided license whitelist: " + Arrays.toString(configuredLicenseWhitelist));
         }
-        return Arrays.stream(licenseWhitelist)
-                .map(String::trim)
-                .map(String::toLowerCase)
-                .collect(Collectors.toSet());
+        if (configuredLicenseWhitelist != null) {
+            return Arrays.stream(configuredLicenseWhitelist)
+                    .map(String::trim)
+                    .map(String::toLowerCase)
+                    .collect(Collectors.toSet());
+        } else {
+            return Collections.emptySet();
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -100,7 +105,7 @@ public class LicenseEnforcerRule implements EnforcerRule2 {
                 (RepositorySystem) enforcerRuleHelper.getComponent(RepositorySystem.class),
                 (ProjectBuilder) enforcerRuleHelper.getComponent(ProjectBuilder.class),
                 (RepositorySystemSession) enforcerRuleHelper.evaluate("${session.repositorySession}"),
-                new HashSet<>(Arrays.asList(exclusions)),
+                exclusions == null ? Collections.emptySet() : new HashSet<>(Arrays.asList(exclusions)),
                 createWhitelistedLicensesSet(licenseWhitelist));
     }
 

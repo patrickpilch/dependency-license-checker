@@ -37,18 +37,6 @@ public class ArtifactExclusion {
         this.version = version;
     }
 
-    String getGroupId() {
-        return groupId;
-    }
-
-    String getArtifactId() {
-        return artifactId;
-    }
-
-    String getVersion() {
-        return version;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

@@ -23,9 +23,9 @@
     <groupId>io.github.patrickpilch.dependencylicensechecker</groupId>
     <artifactId>dependency-license-checker</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-
     <name>License enforcement rule</name>
     <description>Maven plugin for whitelisting licenses used in project dependencies.</description>
+
     <developers>
         <developer>
             <name>Patrick Pilch</name>
@@ -43,12 +43,18 @@
         <connection>scm:git:git://github.com/patrickpilch/dependency-license-checker.git</connection>
         <developerConnection>scm:git:git@github.com:patrickpilch/dependency-license-checker.git</developerConnection>
     </scm>
+    <issueManagement>
+        <system>GitHub Issues</system>
+        <url>https://github.com/patrickpilch/dependency-license-checker/issues</url>
+    </issueManagement>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>1.8</java.version>
         <enforcer.api.version>1.4.1</enforcer.api.version>
         <maven.version>3.3.3</maven.version>
+        <jacoco.ut.exec.file>${project.build.directory}/coverage-reports/jacoco-ut.exec</jacoco.ut.exec.file>
+        <jacoco.it.exec.file>${project.build.directory}/coverage-reports/jacoco-it.exec</jacoco.it.exec.file>
     </properties>
 
     <dependencies>
@@ -80,6 +86,12 @@
             <artifactId>maven-dependency-tree</artifactId>
             <version>2.2</version>
             <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 
@@ -135,6 +147,125 @@
                     <licenseMapping>
                         <param>https://source.jasig.org/licenses/license-mappings.xml</param>
                     </licenseMapping>
+                </configuration>
+            </plugin>
+
+            <!-- Testing Plugins -->
+            <plugin>
+                <groupId>org.eluder.coveralls</groupId>
+                <artifactId>coveralls-maven-plugin</artifactId>
+                <version>4.2.0</version>
+                <configuration>
+                    <jacocoReports>
+                        <jacocoReport>${project.reporting.outputDirectory}/jacoco-ut/jacoco.xml</jacocoReport>
+                        <jacocoReport>${project.reporting.outputDirectory}/jacoco-it/jacoco.xml</jacocoReport>
+                    </jacocoReports>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.19.1</version>
+                <configuration>
+                    <argLine>${surefireArgLine}</argLine>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>0.7.7.201606060606</version>
+                <executions>
+                    <execution>
+                        <id>pre-unit-test</id>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                        <configuration>
+                            <destFile>${jacoco.ut.exec.file}</destFile>
+                            <propertyName>surefireArgLine</propertyName>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>post-unit-test</id>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                        <configuration>
+                            <dataFile>${jacoco.ut.exec.file}</dataFile>
+                            <outputDirectory>${project.reporting.outputDirectory}/jacoco-ut</outputDirectory>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>pre-integration-test</id>
+                        <phase>pre-integration-test</phase>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                        <configuration>
+                            <destFile>${jacoco.it.exec.file}</destFile>
+                            <propertyName>integrationArgLine</propertyName>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>post-integration-test</id>
+                        <phase>post-integration-test</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                        <configuration>
+                            <dataFile>${jacoco.it.exec.file}</dataFile>
+                            <outputDirectory>${project.reporting.outputDirectory}/jacoco-it</outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-invoker-plugin</artifactId>
+                <version>2.0.0</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>install</goal>
+                            <goal>integration-test</goal>
+                            <goal>verify</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <localRepositoryPath>${project.build.directory}/local-repo</localRepositoryPath>
+                    <projectsDirectory>src/it/projects</projectsDirectory>
+                    <cloneProjectsTo>${project.build.directory}/it/projects</cloneProjectsTo>
+                    <settingsFile>src/it/mock-repository-settings.xml</settingsFile>
+                    <filterProperties>
+                        <repository.proxy.url>${repository.proxy.url}</repository.proxy.url>
+                    </filterProperties>
+                    <mavenOpts>${integrationArgLine}</mavenOpts>
+                    <postBuildHookScript>verify</postBuildHookScript>
+                    <showErrors>true</showErrors>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>mrm-maven-plugin</artifactId>
+                <version>1.0.0</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>start</goal>
+                            <goal>stop</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <propertyName>repository.proxy.url</propertyName>
+                    <repositories>
+                        <mockRepo>
+                            <source>src/it/mock-repository</source>
+                        </mockRepo>
+                        <proxyRepo/>
+                    </repositories>
                 </configuration>
             </plugin>
         </plugins>
