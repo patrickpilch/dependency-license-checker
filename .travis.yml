@@ -1,4 +1,5 @@
 language: java
 jdk:
   - oraclejdk8
-script: mvn clean verify coveralls:report
+script: mvn clean verify -X -e
+after_success: coveralls:report
