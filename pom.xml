@@ -52,7 +52,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>1.8</java.version>
         <enforcer.api.version>1.4.1</enforcer.api.version>
-        <maven.version>3.3.3</maven.version>
+        <maven.version>3.2.5</maven.version>
         <jacoco.ut.exec.file>${project.build.directory}/coverage-reports/jacoco-ut.exec</jacoco.ut.exec.file>
         <jacoco.it.exec.file>${project.build.directory}/coverage-reports/jacoco-it.exec</jacoco.it.exec.file>
     </properties>
