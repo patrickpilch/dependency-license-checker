@@ -1,6 +1,7 @@
 # Dependency License Checker (Work in Progress)
 
 [![Build Status](https://travis-ci.org/patrickpilch/dependency-license-checker.svg?branch=master)](https://travis-ci.org/patrickpilch/dependency-license-checker)
+[![Coverage Status](https://coveralls.io/repos/github/patrickpilch/dependency-license-checker/badge.svg?branch=master)](https://coveralls.io/github/patrickpilch/dependency-license-checker?branch=master)
 
 ## Usage
 
@@ -84,6 +85,5 @@ license to sneak into the permitted list.
 - Separate out maven-enforcer plugin into separate module and create a standard mojo plugin module as well, to allow
 users flexibility.
 - Accept license whitelist files in configuration
-- Tests (100% coverage baby!)
+- Increase test coverage
 - Release on maven central
-- Perhaps a snazzier name?
