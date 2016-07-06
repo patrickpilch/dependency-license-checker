@@ -21,21 +21,14 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>integrationtests</groupId>
-    <artifactId>fake-project</artifactId>
+    <artifactId>parent-with-license</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
 
     <licenses>
         <license>
-            <name>Fake Project License</name>
+            <name>Parent License</name>
         </license>
     </licenses>
-
-    <dependencies>
-        <dependency>
-            <groupId>integrationtests</groupId>
-            <artifactId>fake-library</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
-    </dependencies>
 
 </project>
