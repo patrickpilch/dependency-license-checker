@@ -3,5 +3,5 @@ jdk:
   - oraclejdk8
 env:
   - MAVEN_SKIP_RC=true
-script: mvn -e clean verify
+script: mvn -B -e clean verify
 after_success: mvn coveralls:report
