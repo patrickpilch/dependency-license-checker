@@ -82,8 +82,5 @@ This was another strategic choice made to address the risk of writing an overly 
 license to sneak into the permitted list.
 
 ## TODOs before initial release
-- Separate out maven-enforcer plugin into separate module and create a standard mojo plugin module as well, to allow
-users flexibility.
-- Accept license whitelist files in configuration
-- Increase test coverage
-- Release on maven central
+- Create LicenseWhitelistProvider and ExclusionProvider interfaces and default implementation of file-based reading.
+- Add support for scanning plugins, and not only artifacts in `<dependencies>`
