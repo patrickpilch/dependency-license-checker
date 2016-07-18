@@ -30,11 +30,8 @@ import org.codehaus.plexus.component.configurator.expression.ExpressionEvaluatio
 import org.codehaus.plexus.component.repository.exception.ComponentLookupException;
 import org.eclipse.aether.RepositorySystemSession;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.stream.Collectors;
+import java.util.*;
+import java.util.function.Supplier;
 
 import static io.github.patrickpilch.dependencylicensechecker.DependencyChainPrinter.printTree;
 
@@ -49,8 +46,9 @@ public class LicenseEnforcerRule implements EnforcerRule2 {
     @SuppressWarnings("unused")
     private String[] licenseWhitelist;
     @SuppressWarnings("unused")
+    private Supplier<List<String>> licenseSupplier;
+    @SuppressWarnings("unused")
     private ArtifactExclusion[] exclusions;
-
 
     private Log log;
     private DependencyGraphBuilder dependencyGraphBuilder;
@@ -83,18 +81,18 @@ public class LicenseEnforcerRule implements EnforcerRule2 {
         }
     }
 
-    private Set<String> createWhitelistedLicensesSet(final String[] configuredLicenseWhitelist) {
-        if (log.isDebugEnabled()) {
-            log.debug("Provided license whitelist: " + Arrays.toString(configuredLicenseWhitelist));
+    private Set<String> getWhitelistedLicensesSet() {
+        final Set<String> whitelistedLicenses = new HashSet<>();
+
+        if (licenseSupplier != null) {
+            whitelistedLicenses.addAll(licenseSupplier.get());
         }
-        if (configuredLicenseWhitelist != null) {
-            return Arrays.stream(configuredLicenseWhitelist)
-                    .map(String::trim)
-                    .map(String::toLowerCase)
-                    .collect(Collectors.toSet());
-        } else {
-            return Collections.emptySet();
+        if (licenseWhitelist != null) {
+            Arrays.stream(licenseWhitelist)
+                    .forEach(whitelistedLicenses::add);
         }
+
+        return whitelistedLicenses;
     }
 
     @SuppressWarnings("unchecked")
@@ -106,7 +104,7 @@ public class LicenseEnforcerRule implements EnforcerRule2 {
                 (ProjectBuilder) enforcerRuleHelper.getComponent(ProjectBuilder.class),
                 (RepositorySystemSession) enforcerRuleHelper.evaluate("${session.repositorySession}"),
                 exclusions == null ? Collections.emptySet() : new HashSet<>(Arrays.asList(exclusions)),
-                createWhitelistedLicensesSet(licenseWhitelist));
+                getWhitelistedLicensesSet());
     }
 
     private void injectDependencies(EnforcerRuleHelper enforcerRuleHelper) throws ComponentLookupException {

@@ -84,7 +84,7 @@ public class DependencyChecker {
             } else {
                 for (final License license : licenses) {
                     log.debug("Inspecting license - " + license.getName());
-                    if (!whitelistedLicenses.contains(license.getName().trim().toLowerCase())) {
+                    if (!whitelistedLicenses.contains(license.getName())) {
                         throw new LicenseNotAllowedException(dependency, license);
                     } else if (log.isDebugEnabled()) {
                         log.debug("\"" + dependency.getArtifact().getId() + "\" with license \"" + license.getName() +

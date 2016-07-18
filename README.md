@@ -7,6 +7,7 @@
 
 ### Sample Configuration
 
+**Configuration in POM**
 ```xml
 <plugin>
     <groupId>org.apache.maven.plugins</groupId>
@@ -45,6 +46,27 @@
     </executions>
 </plugin>
 ```
+**Configuration external to POM**
+
+This is the recommended approach for larger projects with many licenses, in order to not pollute the pom.
+Please see `TextFileSupplier` javadoc for details.
+
+```xml
+<configuration>
+    <rules>
+        <myCustomRule implementation="io.github.patrickpilch.dependencylicensechecker.plugin.enforcer.LicenseEnforcerRule">
+            <licenseSupplier implementation="io.github.patrickpilch.dependencylicensechecker.suppliers.TextFileSupplier">
+                <filePath>licenses.txt</filePath>
+            </licenseSupplier>
+        </myCustomRule>
+    </rules>
+</configuration>
+```
+
+**Note**
+- License names are leading/trailing whitespace and case sensitive.
+- Both internal and external configurations will be respected if defined simultaneously.
+
 
 ### Sample Output
 ```
@@ -59,6 +81,11 @@ patrick.test.sandbox:Sandbox:jar:1.0-SNAPSHOT
 [INFO] BUILD FAILURE
 [INFO] ------------------------------------------------------------------------
 ```
+
+## Limitations
+
+This plugin only inspects project dependencies, e.g. not build and reporting plugins. It is a future goal to support
+this, but in the meantime a mitigation is to place the plugin into the `<dependencies>` section to be scanned.
 
 ## Design
 
@@ -80,7 +107,3 @@ _Why no regular expression support for licenses?_
 
 This was another strategic choice made to address the risk of writing an overly permissive regex that would allow a new
 license to sneak into the permitted list.
-
-## TODOs before initial release
-- Create LicenseWhitelistProvider and ExclusionProvider interfaces and default implementation of file-based reading.
-- Add support for scanning plugins, and not only artifacts in `<dependencies>`
