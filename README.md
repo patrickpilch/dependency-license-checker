@@ -107,7 +107,3 @@ _Why no regular expression support for licenses?_
 
 This was another strategic choice made to address the risk of writing an overly permissive regex that would allow a new
 license to sneak into the permitted list.
-
-## TODOs before initial release
-- Create LicenseWhitelistProvider and ExclusionProvider interfaces and default implementation of file-based reading.
-- Add support for scanning plugins, and not only artifacts in `<dependencies>`
