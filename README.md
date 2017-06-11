@@ -1,4 +1,4 @@
-# Dependency License Checker (Work in Progress)
+# Dependency License Checker
 
 [![Build Status](https://travis-ci.org/patrickpilch/dependency-license-checker.svg?branch=master)](https://travis-ci.org/patrickpilch/dependency-license-checker)
 [![Coverage Status](https://coveralls.io/repos/github/patrickpilch/dependency-license-checker/badge.svg?branch=master)](https://coveralls.io/github/patrickpilch/dependency-license-checker?branch=master)
